@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quran_app/screen/surah/surah_view_model.dart';
+
+import '../../widgets/circular_progress_view.dart';
+import '../../widgets/custom_item_surah.dart';
+import '../../widgets/error_view.dart';
+import '../../model/surah_model.dart';
+import '../../utils/result_state.dart';
+
+class FavoriteScreen extends StatefulWidget {
+  static const String routeName = '/favorite';
+
+  const FavoriteScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
+}
+
+class _FavoriteScreenState extends State<FavoriteScreen> {
+  @override
+  void initState() {
+    if (WidgetsBinding.instance != null) {
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+        Provider.of<SurahViewModel>(context, listen: false).getSurahFavorites();
+      });
+    }
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Favorites"
+        ),
+      ),
+      body: Consumer<SurahViewModel>(
+          builder: (context, model, child) {
+            if (model.state == ResultState.loading) {
+              return const CircularProgressView();
+            }
+
+            if (model.state == ResultState.hasData) {
+              List<DataSurah> _allSurahFav = [];
+              for (var favorite in model.favorites) {
+                for (var surah in model.surah) {
+                  if (favorite.numberSurah == surah.number.toString()) {
+                    _allSurahFav.add(surah);
+                  }
+                }
+              }
+
+              return ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+                itemCount: _allSurahFav.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final DataSurah surah = _allSurahFav[index];
+                  return CustomItemSurah(dataSurah: surah, isFavorite: true,);
+                },
+              );
+            }
+
+            return const ErrorView(text: "Terjadi kesalahan saat memuat data!",);
+          }
+      ),
+    );
+  }
+}
