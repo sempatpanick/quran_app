@@ -22,7 +22,7 @@ class DetailSurahModel {
     "code": code,
     "status": status,
     "message": message,
-    "data": data!.toJson(),
+    "data": data?.toJson(),
   };
 }
 

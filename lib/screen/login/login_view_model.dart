@@ -22,14 +22,14 @@ class LoginViewModel extends ChangeNotifier {
     try {
       final AuthModel result = await _authApi.login(username, password);
 
-      if (result.status) {
-        _authPreference.setAuth(result.data!);
-        changeState(ResultState.hasData);
-        return result;
-      } else {
+      if (!result.status) {
         changeState(ResultState.error);
         return AuthModel(status: false, message: result.message);
       }
+
+      _authPreference.setAuth(result.data!);
+      changeState(ResultState.hasData);
+      return result;
     } catch(e) {
       changeState(ResultState.error);
       return AuthModel(status: false, message: "Failed to login");
@@ -42,7 +42,7 @@ class LoginViewModel extends ChangeNotifier {
 
       return auth;
     } catch(e) {
-      throw Exception(e);
+      return null;
     }
   }
 

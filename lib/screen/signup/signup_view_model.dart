@@ -20,13 +20,13 @@ class SignupViewModel extends ChangeNotifier {
     try {
       final AuthModel result = await _authApi.signup(username, password, name);
 
-      if (result.status) {
-        changeState(ResultState.hasData);
-        return result;
-      } else {
+      if (!result.status) {
         changeState(ResultState.error);
         return AuthModel(status: false, message: result.message);
       }
+
+      changeState(ResultState.hasData);
+      return result;
     } catch(e) {
       changeState(ResultState.error);
       return AuthModel(status: false, message: "Failed to sign up");

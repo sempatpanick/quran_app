@@ -1,0 +1,1 @@
+enum CategoryState { surah, juz }

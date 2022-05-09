@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quran_app/model/juz_list_model.dart';
 import 'package:quran_app/model/preference/auth_preference.dart';
+import 'package:quran_app/screen/detail_juz/detail_juz_screen.dart';
+import 'package:quran_app/screen/detail_juz/detail_juz_view_model.dart';
 import 'package:quran_app/screen/detail_surah/detail_surah_screen.dart';
 import 'package:quran_app/screen/detail_surah/detail_surah_view_model.dart';
 import 'package:quran_app/screen/favorite/favorite_screen.dart';
@@ -12,6 +15,7 @@ import 'package:quran_app/screen/signup/signup_screen.dart';
 import 'package:quran_app/screen/signup/signup_view_model.dart';
 import 'package:quran_app/screen/surah/surah_screen.dart';
 import 'package:quran_app/screen/surah/surah_view_model.dart';
+import 'package:quran_app/widgets/custom_page_route_fade_transition.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +31,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  static GlobalKey materialAppKey = GlobalKey();
   final String route;
   const MyApp({Key? key, required this.route}) : super(key: key);
 
@@ -41,6 +46,9 @@ class MyApp extends StatelessWidget {
           create: (context) => DetailSurahViewModel(),
         ),
         ChangeNotifierProvider(
+          create: (context) => DetailJuzViewModel(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => LoginViewModel(),
         ),
         ChangeNotifierProvider(
@@ -51,21 +59,54 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        key: MyApp.materialAppKey,
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         initialRoute: route,
-        routes: {
-          SurahScreen.routeName: (_) => const SurahScreen(),
-          DetailSurahScreen.routeName: (context) => DetailSurahScreen(
-            dataSurah: ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>,
-          ),
-          FavoriteScreen.routeName: (_) => const FavoriteScreen(),
-          LoginScreen.routeName: (_) => const LoginScreen(),
-          SignupScreen.routeName: (_) => const SignupScreen(),
-          ProfileScreen.routeName: (_) => const ProfileScreen(),
+        onGenerateRoute: (setting) {
+          if (setting.name == SurahScreen.routeName) {
+            return CustomPageRouteFadeTransition(
+                const SurahScreen(),
+            );
+          }
+          if (setting.name == DetailSurahScreen.routeName) {
+            return CustomPageRouteFadeTransition(
+                DetailSurahScreen(
+                  dataSurah: setting.arguments as Map<String, dynamic>,
+                ),
+            );
+          }
+          if (setting.name == DetailJuzScreen.routeName) {
+            return CustomPageRouteFadeTransition(
+                DetailJuzScreen(
+                  dataJuz: setting.arguments as DataJuzList,
+                ),
+            );
+          }
+          if (setting.name == FavoriteScreen.routeName) {
+            return CustomPageRouteFadeTransition(
+              const FavoriteScreen(),
+            );
+          }
+          if (setting.name == LoginScreen.routeName) {
+            return CustomPageRouteFadeTransition(
+                const LoginScreen(),
+            );
+          }
+          if (setting.name == SignupScreen.routeName) {
+            return CustomPageRouteFadeTransition(
+                const SignupScreen(),
+            );
+          }
+          if (setting.name == ProfileScreen.routeName) {
+            return CustomPageRouteFadeTransition(
+                const ProfileScreen(),
+            );
+          }
+          return null;
         },
       ),
     );

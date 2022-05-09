@@ -1,17 +1,19 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:quran_app/model/detail_ayat_model.dart';
 import 'package:quran_app/model/detail_surah_model.dart';
+import 'package:quran_app/model/juz_model.dart';
 import 'package:quran_app/model/surah_model.dart';
 
 class QuranApi {
   final _dio = Dio();
-  final _mainUrl = 'https://api.quran.sutanlab.id/surah';
+  final _mainUrl = 'https://api.quran.sutanlab.id';
 
   Future<SurahModel> getAllSurah() async {
     try {
       final response = await _dio.get(
-        _mainUrl,
+        '$_mainUrl/surah',
       );
 
       try {
@@ -25,20 +27,54 @@ class QuranApi {
     }
   }
 
-  Future<DetailSurahModel> getSurah(int number) async {
+  Future<DetailSurahModel> getSurahById(int number) async {
     try {
       final response = await _dio.get(
-        '$_mainUrl/$number',
+        '$_mainUrl/surah/$number',
       );
 
       try {
-        final DetailSurahModel detailSurah = DetailSurahModel.fromJson(json.decode(response.data.toString()));
+        final DetailSurahModel detailSurah = DetailSurahModel.fromJson(json.decode(response.data));
         return detailSurah;
       } catch (e) {
         return DetailSurahModel.fromJson(response.data);
       }
     } on DioError catch (e) {
       return DetailSurahModel(code: 500, status: "Failed", message: "Terjadi kesalahan saat mengambil data", data: null);
+    }
+  }
+
+  Future<DetailAyatModel> getDetailAyatBySurahNumber(int numberSurah, int number) async {
+    try {
+      final response = await _dio.get(
+        '$_mainUrl/surah/$numberSurah/$number',
+      );
+
+      try {
+        final DetailAyatModel detailAyat = DetailAyatModel.fromJson(json.decode(response.data));
+        return detailAyat;
+      } catch (e) {
+        return DetailAyatModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      return DetailAyatModel(code: 500, status: 'Failed', message: "Terjadi kesalahan saat mengambil data");
+    }
+  }
+
+  Future<JuzModel> getJuzById(int id) async {
+    try {
+      final response = await _dio.get(
+        '$_mainUrl/juz/$id',
+      );
+
+      try {
+        final JuzModel detailJuz = JuzModel.fromJson(json.decode(response.data));
+        return detailJuz;
+      } catch (e) {
+        return JuzModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      return JuzModel(code: 500, status: "Failed", message: "Terjadi kesalahan saat mengambil data", data: null);
     }
   }
 }

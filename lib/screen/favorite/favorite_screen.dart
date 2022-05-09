@@ -32,11 +32,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Favorites"
-        ),
-      ),
+      backgroundColor: Colors.white,
       body: Consumer<SurahViewModel>(
           builder: (context, model, child) {
             if (model.state == ResultState.loading) {
@@ -53,15 +49,29 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 }
               }
 
-              return ListView.separated(
-                separatorBuilder: (context, index) {
-                  return const Divider();
-                },
-                itemCount: _allSurahFav.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final DataSurah surah = _allSurahFav[index];
-                  return CustomItemSurah(dataSurah: surah, isFavorite: true,);
-                },
+              return NestedScrollView(
+                floatHeaderSlivers: true,
+                headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                  const SliverAppBar(
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.black,
+                    floating: true,
+                    snap: true,
+                    title: Text("Favorites"),
+                  ),
+                ],
+                body: ListView.separated(
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
+                  itemCount: _allSurahFav.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final DataSurah surah = _allSurahFav[index];
+                    return CustomItemSurah(dataSurah: surah, isFavorite: true,);
+                  },
+                ),
               );
             }
 

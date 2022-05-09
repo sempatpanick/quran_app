@@ -25,15 +25,15 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       final AuthModel result = await _authApi.updateProfile(idUser, username, name, email);
 
-      if (result.status) {
-        _authPreference.setAuth(result.data!);
-        getAuthFromPreference();
-        changeState(ResultState.hasData);
-        return result;
-      } else {
+      if (!result.status) {
         changeState(ResultState.error);
         return AuthModel(status: false, message: result.message);
       }
+
+      _authPreference.setAuth(result.data!);
+      getAuthFromPreference();
+      changeState(ResultState.hasData);
+      return result;
     } catch(e) {
       changeState(ResultState.error);
       return AuthModel(status: false, message: "Failed to login");

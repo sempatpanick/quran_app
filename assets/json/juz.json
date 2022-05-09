@@ -1,0 +1,728 @@
+{
+  "juz": [
+    {
+      "id": 1,
+      "juz_number": 1,
+      "verse_mapping": [
+        {
+          "number_surah": 1,
+          "verse_range": "1-7"
+        },
+        {
+          "number_surah": 2,
+          "verse_range": "1-141"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "juz_number": 2,
+      "verse_mapping": [
+        {
+          "number_surah": 2,
+          "verse_range": "142-252"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "juz_number": 3,
+      "verse_mapping": [
+        {
+          "number_surah": 2,
+          "verse_range": "253-286"
+        },
+        {
+          "number_surah": 3,
+          "verse_range": "1-92"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "juz_number": 4,
+      "verse_mapping": [
+        {
+          "number_surah": 3,
+          "verse_range": "93-200"
+        },
+        {
+          "number_surah": 4,
+          "verse_range": "1-23"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "juz_number": 5,
+      "verse_mapping": [
+        {
+          "number_surah": 4,
+          "verse_range": "24-147"
+        },
+        {
+          "number_surah": 2,
+          "verse_range": "1-141"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "juz_number": 6,
+      "verse_mapping": [
+        {
+          "number_surah": 4,
+          "verse_range": "148-176"
+        },
+        {
+          "number_surah": 5,
+          "verse_range": "1-81"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "juz_number": 7,
+      "verse_mapping": [
+        {
+          "number_surah": 5,
+          "verse_range": "82-120"
+        },
+        {
+          "number_surah": 6,
+          "verse_range": "1-110"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "juz_number": 8,
+      "verse_mapping": [
+        {
+          "number_surah": 6,
+          "verse_range": "111-165"
+        },
+        {
+          "number_surah": 7,
+          "verse_range": "1-87"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "juz_number": 9,
+      "verse_mapping": [
+        {
+          "number_surah": 7,
+          "verse_range": "88-206"
+        },
+        {
+          "number_surah": 8,
+          "verse_range": "1-40"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "juz_number": 10,
+      "verse_mapping": [
+        {
+          "number_surah": 8,
+          "verse_range": "41-75"
+        },
+        {
+          "number_surah": 9,
+          "verse_range": "1-92"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "juz_number": 11,
+      "verse_mapping": [
+        {
+          "number_surah": 9,
+          "verse_range": "93-129"
+        },
+        {
+          "number_surah": 10,
+          "verse_range": "1-109"
+        },
+        {
+          "number_surah": 11,
+          "verse_range": "1-5"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "juz_number": 12,
+      "verse_mapping": [
+        {
+          "number_surah": 11,
+          "verse_range": "6-123"
+        },
+        {
+          "number_surah": 12,
+          "verse_range": "1-52"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "juz_number": 13,
+      "verse_mapping": [
+        {
+          "number_surah": 12,
+          "verse_range": "53-111"
+        },
+        {
+          "number_surah": 13,
+          "verse_range": "1-43"
+        },
+        {
+          "number_surah": 14,
+          "verse_range": "1-52"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "juz_number": 14,
+      "verse_mapping": [
+        {
+          "number_surah": 15,
+          "verse_range": "1-99"
+        },
+        {
+          "number_surah": 16,
+          "verse_range": "1-128"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "juz_number": 15,
+      "verse_mapping": [
+        {
+          "number_surah": 17,
+          "verse_range": "1-111"
+        },
+        {
+          "number_surah": 18,
+          "verse_range": "1-74"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "juz_number": 16,
+      "verse_mapping": [
+        {
+          "number_surah": 18,
+          "verse_range": "75-110"
+        },
+        {
+          "number_surah": 19,
+          "verse_range": "1-98"
+        },
+        {
+          "number_surah": 20,
+          "verse_range": "1-135"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "juz_number": 17,
+      "verse_mapping": [
+        {
+          "number_surah": 21,
+          "verse_range": "1-112"
+        },
+        {
+          "number_surah": 22,
+          "verse_range": "1-78"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "juz_number": 18,
+      "verse_mapping": [
+        {
+          "number_surah": 23,
+          "verse_range": "1-118"
+        },
+        {
+          "number_surah": 24,
+          "verse_range": "1-64"
+        },
+        {
+          "number_surah": 25,
+          "verse_range": "1-20"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "juz_number": 19,
+      "verse_mapping": [
+        {
+          "number_surah": 25,
+          "verse_range": "21-77"
+        },
+        {
+          "number_surah": 26,
+          "verse_range": "1-227"
+        },
+        {
+          "number_surah": 27,
+          "verse_range": "1-55"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "juz_number": 20,
+      "verse_mapping": [
+        {
+          "number_surah": 27,
+          "verse_range": "56-93"
+        },
+        {
+          "number_surah": 28,
+          "verse_range": "1-88"
+        },
+        {
+          "number_surah": 29,
+          "verse_range": "1-45"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "juz_number": 21,
+      "verse_mapping": [
+        {
+          "number_surah": 29,
+          "verse_range": "46-69"
+        },
+        {
+          "number_surah": 30,
+          "verse_range": "1-60"
+        },
+        {
+          "number_surah": 31,
+          "verse_range": "1-34"
+        },
+        {
+          "number_surah": 32,
+          "verse_range": "1-30"
+        },
+        {
+          "number_surah": 33,
+          "verse_range": "1-30"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "juz_number": 22,
+      "verse_mapping": [
+        {
+          "number_surah": 33,
+          "verse_range": "31-73"
+        },
+        {
+          "number_surah": 34,
+          "verse_range": "1-54"
+        },
+        {
+          "number_surah": 35,
+          "verse_range": "1-45"
+        },
+        {
+          "number_surah": 36,
+          "verse_range": "1-27"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "juz_number": 23,
+      "verse_mapping": [
+        {
+          "number_surah": 36,
+          "verse_range": "28-83"
+        },
+        {
+          "number_surah": 37,
+          "verse_range": "1-182"
+        },
+        {
+          "number_surah": 38,
+          "verse_range": "1-88"
+        },
+        {
+          "number_surah": 39,
+          "verse_range": "1-31"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "juz_number": 24,
+      "verse_mapping": [
+        {
+          "number_surah": 39,
+          "verse_range": "32-75"
+        },
+        {
+          "number_surah": 40,
+          "verse_range": "1-85"
+        },
+        {
+          "number_surah": 41,
+          "verse_range": "1-46"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "juz_number": 25,
+      "verse_mapping": [
+        {
+          "number_surah": 41,
+          "verse_range": "47-54"
+        },
+        {
+          "number_surah": 42,
+          "verse_range": "1-53"
+        },
+        {
+          "number_surah": 43,
+          "verse_range": "1-89"
+        },
+        {
+          "number_surah": 44,
+          "verse_range": "1-59"
+        },
+        {
+          "number_surah": 45,
+          "verse_range": "1-37"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "juz_number": 26,
+      "verse_mapping": [
+        {
+          "number_surah": 46,
+          "verse_range": "1-35"
+        },
+        {
+          "number_surah": 47,
+          "verse_range": "1-38"
+        },
+        {
+          "number_surah": 48,
+          "verse_range": "1-29"
+        },
+        {
+          "number_surah": 49,
+          "verse_range": "1-18"
+        },
+        {
+          "number_surah": 50,
+          "verse_range": "1-45"
+        },
+        {
+          "number_surah": 51,
+          "verse_range": "1-30"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "juz_number": 27,
+      "verse_mapping": [
+        {
+          "number_surah": 51,
+          "verse_range": "31-60"
+        },
+        {
+          "number_surah": 52,
+          "verse_range": "1-49"
+        },
+        {
+          "number_surah": 53,
+          "verse_range": "1-62"
+        },
+        {
+          "number_surah": 54,
+          "verse_range": "1-55"
+        },
+        {
+          "number_surah": 55,
+          "verse_range": "1-78"
+        },
+        {
+          "number_surah": 56,
+          "verse_range": "1-96"
+        },
+        {
+          "number_surah": 57,
+          "verse_range": "1-29"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "juz_number": 28,
+      "verse_mapping": [
+        {
+          "number_surah": 58,
+          "verse_range": "1-22"
+        },
+        {
+          "number_surah": 59,
+          "verse_range": "1-24"
+        },
+        {
+          "number_surah": 60,
+          "verse_range": "1-13"
+        },
+        {
+          "number_surah": 61,
+          "verse_range": "1-14"
+        },
+        {
+          "number_surah": 62,
+          "verse_range": "1-11"
+        },
+        {
+          "number_surah": 63,
+          "verse_range": "1-11"
+        },
+        {
+          "number_surah": 64,
+          "verse_range": "1-18"
+        },
+        {
+          "number_surah": 65,
+          "verse_range": "1-12"
+        },
+        {
+          "number_surah": 66,
+          "verse_range": "1-12"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "juz_number": 29,
+      "verse_mapping": [
+        {
+          "number_surah": 67,
+          "verse_range": "1-30"
+        },
+        {
+          "number_surah": 68,
+          "verse_range": "1-52"
+        },
+        {
+          "number_surah": 69,
+          "verse_range": "1-52"
+        },
+        {
+          "number_surah": 70,
+          "verse_range": "1-44"
+        },
+        {
+          "number_surah": 71,
+          "verse_range": "1-28"
+        },
+        {
+          "number_surah": 72,
+          "verse_range": "1-28"
+        },
+        {
+          "number_surah": 73,
+          "verse_range": "1-20"
+        },
+        {
+          "number_surah": 74,
+          "verse_range": "1-56"
+        },
+        {
+          "number_surah": 75,
+          "verse_range": "1-40"
+        },
+        {
+          "number_surah": 76,
+          "verse_range": "1-31"
+        },
+        {
+          "number_surah": 77,
+          "verse_range": "1-50"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "juz_number": 30,
+      "verse_mapping": [
+        {
+          "number_surah": 78,
+          "verse_range": "1-40"
+        },
+        {
+          "number_surah": 79,
+          "verse_range": "1-46"
+        },
+        {
+          "number_surah": 80,
+          "verse_range": "1-42"
+        },
+        {
+          "number_surah": 81,
+          "verse_range": "1-29"
+        },
+        {
+          "number_surah": 82,
+          "verse_range": "1-19"
+        },
+        {
+          "number_surah": 83,
+          "verse_range": "1-36"
+        },
+        {
+          "number_surah": 84,
+          "verse_range": "1-25"
+        },
+        {
+          "number_surah": 85,
+          "verse_range": "1-22"
+        },
+        {
+          "number_surah": 86,
+          "verse_range": "1-17"
+        },
+        {
+          "number_surah": 87,
+          "verse_range": "1-19"
+        },
+        {
+          "number_surah": 88,
+          "verse_range": "1-26"
+        },
+        {
+          "number_surah": 89,
+          "verse_range": "1-30"
+        },
+        {
+          "number_surah": 90,
+          "verse_range": "1-20"
+        },
+        {
+          "number_surah": 91,
+          "verse_range": "1-15"
+        },
+        {
+          "number_surah": 92,
+          "verse_range": "1-21"
+        },
+        {
+          "number_surah": 93,
+          "verse_range": "1-11"
+        },
+        {
+          "number_surah": 94,
+          "verse_range": "1-8"
+        },
+        {
+          "number_surah": 95,
+          "verse_range": "1-8"
+        },
+        {
+          "number_surah": 96,
+          "verse_range": "1-19"
+        },
+        {
+          "number_surah": 97,
+          "verse_range": "1-5"
+        },
+        {
+          "number_surah": 98,
+          "verse_range": "1-8"
+        },
+        {
+          "number_surah": 99,
+          "verse_range": "1-8"
+        },
+        {
+          "number_surah": 100,
+          "verse_range": "1-11"
+        },
+        {
+          "number_surah": 101,
+          "verse_range": "1-11"
+        },
+        {
+          "number_surah": 102,
+          "verse_range": "1-8"
+        },
+        {
+          "number_surah": 103,
+          "verse_range": "1-3"
+        },
+        {
+          "number_surah": 104,
+          "verse_range": "1-9"
+        },
+        {
+          "number_surah": 105,
+          "verse_range": "1-5"
+        },
+        {
+          "number_surah": 106,
+          "verse_range": "1-4"
+        },
+        {
+          "number_surah": 107,
+          "verse_range": "1-7"
+        },
+        {
+          "number_surah": 108,
+          "verse_range": "1-3"
+        },
+        {
+          "number_surah": 109,
+          "verse_range": "1-6"
+        },
+        {
+          "number_surah": 110,
+          "verse_range": "1-3"
+        },
+        {
+          "number_surah": 111,
+          "verse_range": "1-5"
+        },
+        {
+          "number_surah": 112,
+          "verse_range": "1-4"
+        },
+        {
+          "number_surah": 113,
+          "verse_range": "1-5"
+        },
+        {
+          "number_surah": 114,
+          "verse_range": "1-6"
+        }
+      ]
+    }
+  ]
+}

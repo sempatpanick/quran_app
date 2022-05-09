@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quran_app/model/detail_surah_model.dart';
-import 'package:quran_app/model/preference/size_view_preference.dart';
+import 'package:quran_app/model/preference/setting_preference.dart';
 
 import '../../model/api/auth_api.dart';
 import '../../model/api/quran_api.dart';
@@ -13,7 +13,7 @@ class DetailSurahViewModel extends ChangeNotifier {
   final QuranApi _quranApi = QuranApi();
   final AuthApi _authApi = AuthApi();
   final AuthPreference _authPref = AuthPreference();
-  final SizeViewPreference _sizeViewPref = SizeViewPreference();
+  final SettingPreference _settingPref = SettingPreference();
 
   ResultState _state = ResultState.loading;
   ResultState get state => _state;
@@ -30,8 +30,15 @@ class DetailSurahViewModel extends ChangeNotifier {
   double _sizeTranslation = 0;
   double get sizeTranslation => _sizeTranslation;
 
-  DetailSurahModel _surah = DetailSurahModel(code: 0, status: "", message: "", data: null);
+  List<String> _lastReadVerse = [];
+  List<String> get lastReadVerse => _lastReadVerse;
+
+  DetailSurahModel _surah =
+      DetailSurahModel(code: 0, status: "", message: "", data: null);
   DetailSurahModel get surah => _surah;
+
+  bool _isScrolling = false;
+  bool get isScrolling => _isScrolling;
 
   double _turns = 0.0;
   double get turns => _turns;
@@ -59,10 +66,10 @@ class DetailSurahViewModel extends ChangeNotifier {
   void getSurahById(int number) async {
     changeState(ResultState.loading);
     try {
-      final DetailSurahModel result = await _quranApi.getSurah(number);
+      final DetailSurahModel result = await _quranApi.getSurahById(number);
       _surah = result;
       changeState(ResultState.hasData);
-    } catch(e) {
+    } catch (e) {
       changeState(ResultState.error);
     }
   }
@@ -73,7 +80,8 @@ class DetailSurahViewModel extends ChangeNotifier {
     _isFavorite = false;
     if (_auth != null) {
       final auth = _auth as DataAuth;
-      final FavoriteModel result = await _authApi.getFavorite(auth.id, numberSurah);
+      final FavoriteModel result =
+          await _authApi.getFavorite(auth.id, numberSurah);
       if (result.status) {
         if (result.data!.isNotEmpty) {
           _isFavorite = true;
@@ -88,18 +96,21 @@ class DetailSurahViewModel extends ChangeNotifier {
     changeStateFavorite(ResultState.loading);
     try {
       final _auth = await _authPref.getAuth;
-      if (_auth != null) {
-        final auth = _auth as DataAuth;
-        final FavoriteModel result = await _authApi.addFavorite(auth.id, numberSurah);
 
-        getFavorite(numberSurah);
-        changeStateFavorite(ResultState.hasData);
-        return result;
-      } else {
+      if (_auth == null) {
         changeStateFavorite(ResultState.error);
-        return FavoriteModel(status: false, message: "Failed to add favorite, please re-login");
+        return FavoriteModel(
+            status: false, message: "Failed to add favorite, please re-login");
       }
-    } catch(e) {
+
+      final auth = _auth as DataAuth;
+      final FavoriteModel result =
+          await _authApi.addFavorite(auth.id, numberSurah);
+
+      getFavorite(numberSurah);
+      changeStateFavorite(ResultState.hasData);
+      return result;
+    } catch (e) {
       changeStateFavorite(ResultState.error);
       throw Exception(e);
     }
@@ -109,44 +120,62 @@ class DetailSurahViewModel extends ChangeNotifier {
     changeStateFavorite(ResultState.loading);
     try {
       final _auth = await _authPref.getAuth;
-      if (_auth != null) {
-        final auth = _auth as DataAuth;
-        final FavoriteModel result = await _authApi.removeFavorite(auth.id, numberSurah);
 
-        getFavorite(numberSurah);
-        changeStateFavorite(ResultState.hasData);
-        return result;
-      } else {
+      if (_auth == null) {
         changeStateFavorite(ResultState.error);
-        return FavoriteModel(status: false, message: "Failed to remove favorite, please re-login");
+        return FavoriteModel(
+            status: false,
+            message: "Failed to remove favorite, please re-login");
       }
-    } catch(e) {
+
+      final auth = _auth as DataAuth;
+      final FavoriteModel result =
+          await _authApi.removeFavorite(auth.id, numberSurah);
+
+      getFavorite(numberSurah);
+      changeStateFavorite(ResultState.hasData);
+      return result;
+    } catch (e) {
       changeStateFavorite(ResultState.error);
       throw Exception(e);
     }
   }
 
   void _getSizeAyat() async {
-    final double sizeAyat = await _sizeViewPref.getSizeAyat;
+    final double sizeAyat = await _settingPref.getSizeAyat;
     _sizeAyat = sizeAyat;
     notifyListeners();
   }
 
   void setSizeAyat(double size) {
-    _sizeViewPref.setSizeAyat(size);
+    _settingPref.setSizeAyat(size);
     _getSizeAyat();
-    notifyListeners();
   }
 
   void _getSizeTranslation() async {
-    final double sizeTranslation = await _sizeViewPref.getSizeTranslation;
+    final double sizeTranslation = await _settingPref.getSizeTranslation;
     _sizeTranslation = sizeTranslation;
     notifyListeners();
   }
 
   void setSizeTranslation(double size) {
-    _sizeViewPref.setSizeTranslation(size);
+    _settingPref.setSizeTranslation(size);
     _getSizeTranslation();
+  }
+
+  void getLastReadVerse() async {
+    final List<String> lastReadVersePref = await _settingPref.getLastReadVerse;
+    _lastReadVerse = lastReadVersePref;
+    notifyListeners();
+  }
+
+  void setLastReadVerse(List<String> verse) {
+    _settingPref.setLastReadVerse(verse);
+    getLastReadVerse();
+  }
+
+  void setIsScrolling(bool isScrolling) {
+    _isScrolling = isScrolling;
     notifyListeners();
   }
 
