@@ -17,13 +17,18 @@ class QuranApi {
       );
 
       try {
-        final SurahModel surah = SurahModel.fromJson(json.decode(response.data));
+        final SurahModel surah =
+            SurahModel.fromJson(json.decode(response.data));
         return surah;
       } catch (e) {
         return SurahModel.fromJson(response.data);
       }
     } on DioError catch (e) {
-      return SurahModel(code: 500, status: "Failed", message: "Terjadi kesalahan saat mengambil data", data: []);
+      return SurahModel(
+          code: 500,
+          status: "Failed",
+          message: "Terjadi kesalahan saat mengambil data",
+          data: []);
     }
   }
 
@@ -34,30 +39,40 @@ class QuranApi {
       );
 
       try {
-        final DetailSurahModel detailSurah = DetailSurahModel.fromJson(json.decode(response.data));
+        final DetailSurahModel detailSurah =
+            DetailSurahModel.fromJson(json.decode(response.data));
         return detailSurah;
       } catch (e) {
         return DetailSurahModel.fromJson(response.data);
       }
     } on DioError catch (e) {
-      return DetailSurahModel(code: 500, status: "Failed", message: "Terjadi kesalahan saat mengambil data", data: null);
+      return DetailSurahModel(
+          code: 500,
+          status: "Failed",
+          message: "Terjadi kesalahan saat mengambil data",
+          data: null);
     }
   }
 
-  Future<DetailAyatModel> getDetailAyatBySurahNumber(int numberSurah, int number) async {
+  Future<DetailAyatModel> getDetailVerseBySurahNumber(
+      int numberSurah, int number) async {
     try {
       final response = await _dio.get(
         '$_mainUrl/surah/$numberSurah/$number',
       );
 
       try {
-        final DetailAyatModel detailAyat = DetailAyatModel.fromJson(json.decode(response.data));
+        final DetailAyatModel detailAyat =
+            DetailAyatModel.fromJson(json.decode(response.data));
         return detailAyat;
       } catch (e) {
         return DetailAyatModel.fromJson(response.data);
       }
     } on DioError catch (e) {
-      return DetailAyatModel(code: 500, status: 'Failed', message: "Terjadi kesalahan saat mengambil data");
+      return DetailAyatModel(
+          code: 500,
+          status: 'Failed',
+          message: "Terjadi kesalahan saat mengambil data");
     }
   }
 
@@ -68,13 +83,18 @@ class QuranApi {
       );
 
       try {
-        final JuzModel detailJuz = JuzModel.fromJson(json.decode(response.data));
+        final JuzModel detailJuz =
+            JuzModel.fromJson(json.decode(response.data));
         return detailJuz;
       } catch (e) {
         return JuzModel.fromJson(response.data);
       }
     } on DioError catch (e) {
-      return JuzModel(code: 500, status: "Failed", message: "Terjadi kesalahan saat mengambil data", data: null);
+      return JuzModel(
+          code: 500,
+          status: "Failed",
+          message: "Terjadi kesalahan saat mengambil data",
+          data: null);
     }
   }
 }

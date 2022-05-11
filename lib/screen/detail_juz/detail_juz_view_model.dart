@@ -24,24 +24,29 @@ class DetailJuzViewModel extends ChangeNotifier {
     try {
       final JuzModel result = await _quranApi.getJuzById(id);
       _juz = result;
-      final DetailAyatModel ayatLast = await _getDetailAyat(numberSurahLast, result.data!.verses.last.number.inSurah + 1);
+      final DetailAyatModel ayatLast = await _getDetailAyat(
+          numberSurahLast, result.data!.verses.last.number.inSurah + 1);
       if (ayatLast.code == 200) {
         final VerseJuz ayat = VerseJuz.fromJson(ayatLast.data!.toJson());
         _juz.data!.verses.add(ayat);
       }
       setNumberInQuran(result.data!.verses.first.number.inQuran);
       changeState(ResultState.hasData);
-    } catch(e) {
+    } catch (e) {
       changeState(ResultState.error);
     }
   }
 
   Future<DetailAyatModel> _getDetailAyat(int numberSurah, int number) async {
     try {
-      final DetailAyatModel result = await _quranApi.getDetailAyatBySurahNumber(numberSurah, number);
+      final DetailAyatModel result =
+          await _quranApi.getDetailVerseBySurahNumber(numberSurah, number);
       return result;
-    } catch(e) {
-      return DetailAyatModel(code: 500, status: "Failed", message: "Terjadi kesalahan saat mengambil data");
+    } catch (e) {
+      return DetailAyatModel(
+          code: 500,
+          status: "Failed",
+          message: "Terjadi kesalahan saat mengambil data");
     }
   }
 
