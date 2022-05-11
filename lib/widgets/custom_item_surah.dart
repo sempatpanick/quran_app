@@ -7,87 +7,101 @@ import 'package:quran_app/screen/detail_surah/detail_surah_screen.dart';
 import 'package:quran_app/screen/surah/surah_view_model.dart';
 
 import '../constants/color_app.dart';
+import '../model/favorite_model.dart';
 
 class CustomItemSurah extends StatelessWidget {
   final DataSurah dataSurah;
-  final bool isFavorite;
-  const CustomItemSurah(
-      {Key? key, required this.dataSurah, required this.isFavorite})
-      : super(key: key);
+  const CustomItemSurah({Key? key, required this.dataSurah}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      key: ValueKey(dataSurah.number),
-      endActionPane: ActionPane(
-        motion: const StretchMotion(),
-        children: [
-          isFavorite
-              ? SlidableAction(
-                  onPressed: (contexts) async {
-                    final surahViewModel =
-                        Provider.of<SurahViewModel>(context, listen: false);
-                    final favorite =
-                        await surahViewModel.removeFavorite(dataSurah.number);
+    return Consumer<SurahViewModel>(builder: (context, model, child) {
+      final List<DataFavorite> favorites = model.favorites;
+      bool isFavorite = false;
+      if (favorites.isNotEmpty) {
+        final List<DataFavorite> favorite = favorites
+            .where((item) => item.numberSurah == dataSurah.number.toString())
+            .toList();
+        if (favorite.isNotEmpty) {
+          isFavorite = true;
+        } else {
+          isFavorite = false;
+        }
+      }
 
-                    edgeAlert(context,
-                        title: favorite.status ? 'Success' : 'Gagal',
-                        description: favorite.message,
-                        gravity: Gravity.top,
-                        backgroundColor:
-                            favorite.status ? Colors.green : bgColorRedLight);
-                  },
-                  icon: Icons.delete_forever,
-                  label: "Delete from Favorite",
-                  backgroundColor: Colors.redAccent,
-                  spacing: 1,
-                )
-              : SlidableAction(
-                  onPressed: (contexts) async {
-                    final surahViewModel =
-                        Provider.of<SurahViewModel>(context, listen: false);
-                    final favorite =
-                        await surahViewModel.addToFavorite(dataSurah.number);
+      return Slidable(
+        key: ValueKey(dataSurah.number),
+        endActionPane: ActionPane(
+          motion: const StretchMotion(),
+          children: [
+            isFavorite
+                ? SlidableAction(
+                    onPressed: (contexts) async {
+                      final surahViewModel =
+                          Provider.of<SurahViewModel>(context, listen: false);
+                      final favorite =
+                          await surahViewModel.removeFavorite(dataSurah.number);
 
-                    edgeAlert(context,
-                        title: favorite.status ? 'Success' : 'Gagal',
-                        description: favorite.message,
-                        gravity: Gravity.top,
-                        backgroundColor:
-                            favorite.status ? Colors.green : bgColorRedLight);
-                  },
-                  icon: Icons.favorite,
-                  label: "Add to Favorite",
-                  backgroundColor: Colors.green,
-                  spacing: 1,
-                ),
-        ],
-      ),
-      child: ListTile(
-        onTap: () {
-          Navigator.pushNamed(context, DetailSurahScreen.routeName, arguments: {
-            'number': dataSurah.number,
-            'title': dataSurah.name.transliteration.id
-          });
-        },
-        title: Text(
-          dataSurah.name.transliteration.id,
-          textAlign: TextAlign.start,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      edgeAlert(context,
+                          title: favorite.status ? 'Success' : 'Gagal',
+                          description: favorite.message,
+                          gravity: Gravity.top,
+                          backgroundColor:
+                              favorite.status ? Colors.green : bgColorRedLight);
+                    },
+                    icon: Icons.delete_forever,
+                    label: "Delete from Favorite",
+                    backgroundColor: Colors.redAccent,
+                    spacing: 1,
+                  )
+                : SlidableAction(
+                    onPressed: (contexts) async {
+                      final surahViewModel =
+                          Provider.of<SurahViewModel>(context, listen: false);
+                      final favorite =
+                          await surahViewModel.addToFavorite(dataSurah.number);
+
+                      edgeAlert(context,
+                          title: favorite.status ? 'Success' : 'Gagal',
+                          description: favorite.message,
+                          gravity: Gravity.top,
+                          backgroundColor:
+                              favorite.status ? Colors.green : bgColorRedLight);
+                    },
+                    icon: Icons.favorite,
+                    label: "Add to Favorite",
+                    backgroundColor: Colors.green,
+                    spacing: 1,
+                  ),
+          ],
         ),
-        subtitle: Text(
-          "${dataSurah.name.translation.id} (${dataSurah.numberOfVerses})",
-          textAlign: TextAlign.start,
+        child: ListTile(
+          onTap: () {
+            Navigator.pushNamed(context, DetailSurahScreen.routeName,
+                arguments: {
+                  'number': dataSurah.number,
+                  'title': dataSurah.name.transliteration.id
+                });
+          },
+          title: Text(
+            dataSurah.name.transliteration.id,
+            textAlign: TextAlign.start,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(
+            "${dataSurah.name.translation.id} (${dataSurah.numberOfVerses})",
+            textAlign: TextAlign.start,
+          ),
+          trailing: Text(
+            dataSurah.name.short,
+            textAlign: TextAlign.end,
+            style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'IsepMisbah'),
+          ),
         ),
-        trailing: Text(
-          dataSurah.name.short,
-          textAlign: TextAlign.end,
-          style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'IsepMisbah'),
-        ),
-      ),
-    );
+      );
+    });
   }
 }

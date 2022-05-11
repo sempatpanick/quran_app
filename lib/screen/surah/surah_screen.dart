@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_app/model/auth_model.dart';
-import 'package:quran_app/model/favorite_model.dart';
 import 'package:quran_app/model/surah_model.dart';
 import 'package:quran_app/screen/detail_juz/detail_juz_screen.dart';
 import 'package:quran_app/screen/detail_surah/detail_surah_screen.dart';
@@ -433,25 +432,9 @@ class _SurahScreenState extends State<SurahScreen>
                     },
                     itemCount: model.surah.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final List<DataFavorite> favorites = model.favorites;
                       final DataSurah surah = model.surah[index];
-                      bool isFavorite = false;
-                      if (favorites.isNotEmpty) {
-                        final List<DataFavorite> favorite = favorites
-                            .where((item) => item.numberSurah
-                                .toLowerCase()
-                                .contains(
-                                    surah.number.toString().toLowerCase()))
-                            .toList();
-                        if (favorite.isNotEmpty) {
-                          isFavorite = true;
-                        } else {
-                          isFavorite = false;
-                        }
-                      }
                       return CustomItemSurah(
                         dataSurah: surah,
-                        isFavorite: isFavorite,
                       );
                     },
                   );
