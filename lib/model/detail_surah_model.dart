@@ -84,7 +84,7 @@ class NameDetailSurah {
 
   String short;
   String long;
-  TransliterationDetailSurah transliteration;
+  TranslationDetailSurah transliteration;
   TranslationDetailSurah translation;
 
   factory NameDetailSurah.fromJson(Map<String, dynamic> json) =>
@@ -92,7 +92,7 @@ class NameDetailSurah {
         short: json["short"],
         long: json["long"],
         transliteration:
-            TransliterationDetailSurah.fromJson(json["transliteration"]),
+            TranslationDetailSurah.fromJson(json["transliteration"]),
         translation: TranslationDetailSurah.fromJson(json["translation"]),
       );
 
