@@ -156,8 +156,12 @@ class _SurahScreenState extends State<SurahScreen>
                   const Divider(),
                   ListTile(
                     onTap: () {
-                      final loginViewModel =
+                      final LoginViewModel loginViewModel =
                           Provider.of<LoginViewModel>(context, listen: false);
+                      final DetailSurahViewModel detailSurahViewModel =
+                          Provider.of<DetailSurahViewModel>(context,
+                              listen: false);
+                      detailSurahViewModel.removeLastReadVerse();
                       loginViewModel.logout();
                       setState(() {
                         Navigator.pushReplacementNamed(

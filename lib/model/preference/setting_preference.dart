@@ -60,4 +60,10 @@ class SettingPreference {
 
     prefs.setStringList(lastReadVerseKey, verse);
   }
+
+  void removeLastReadVerse() async {
+    final SharedPreferences prefs = await _prefs;
+
+    prefs.remove(lastReadVerseKey);
+  }
 }

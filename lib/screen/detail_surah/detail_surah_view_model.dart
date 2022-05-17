@@ -174,6 +174,11 @@ class DetailSurahViewModel extends ChangeNotifier {
     getLastReadVerse();
   }
 
+  void removeLastReadVerse() {
+    _settingPref.removeLastReadVerse();
+    getLastReadVerse();
+  }
+
   void setIsScrolling(bool isScrolling) {
     _isScrolling = isScrolling;
     notifyListeners();
