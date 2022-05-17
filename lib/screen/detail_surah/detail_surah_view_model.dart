@@ -76,10 +76,10 @@ class DetailSurahViewModel extends ChangeNotifier {
 
   void getFavorite(int numberSurah) async {
     changeStateFavorite(ResultState.loading);
-    final _auth = await _authPref.getAuth;
+    final authPref = await _authPref.getAuth;
     _isFavorite = false;
-    if (_auth != null) {
-      final auth = _auth as DataAuth;
+    if (authPref != null) {
+      final auth = authPref as DataAuth;
       final FavoriteModel result =
           await _authApi.getFavorite(auth.id, numberSurah);
       if (result.status) {
@@ -95,15 +95,15 @@ class DetailSurahViewModel extends ChangeNotifier {
   Future<FavoriteModel> addToFavorite(int numberSurah) async {
     changeStateFavorite(ResultState.loading);
     try {
-      final _auth = await _authPref.getAuth;
+      final authPref = await _authPref.getAuth;
 
-      if (_auth == null) {
+      if (authPref == null) {
         changeStateFavorite(ResultState.error);
         return FavoriteModel(
             status: false, message: "Failed to add favorite, please re-login");
       }
 
-      final auth = _auth as DataAuth;
+      final auth = authPref as DataAuth;
       final FavoriteModel result =
           await _authApi.addFavorite(auth.id, numberSurah);
 
@@ -119,16 +119,16 @@ class DetailSurahViewModel extends ChangeNotifier {
   Future<FavoriteModel> removeFavorite(int numberSurah) async {
     changeStateFavorite(ResultState.loading);
     try {
-      final _auth = await _authPref.getAuth;
+      final authPref = await _authPref.getAuth;
 
-      if (_auth == null) {
+      if (authPref == null) {
         changeStateFavorite(ResultState.error);
         return FavoriteModel(
             status: false,
             message: "Failed to remove favorite, please re-login");
       }
 
-      final auth = _auth as DataAuth;
+      final auth = authPref as DataAuth;
       final FavoriteModel result =
           await _authApi.removeFavorite(auth.id, numberSurah);
 

@@ -19,15 +19,17 @@ import 'package:quran_app/widgets/custom_page_route_fade_transition.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AuthPreference _auth = AuthPreference();
-  var _dataAuth = await _auth.getAuth;
+  AuthPreference auth = AuthPreference();
+  var dataAuth = await auth.getAuth;
   String route;
-  if (_dataAuth != null) {
+  if (dataAuth != null) {
     route = SurahScreen.routeName;
   } else {
     route = LoginScreen.routeName;
   }
-  runApp(MyApp(route: route,));
+  runApp(MyApp(
+    route: route,
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -69,21 +71,21 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (setting) {
           if (setting.name == SurahScreen.routeName) {
             return CustomPageRouteFadeTransition(
-                const SurahScreen(),
+              const SurahScreen(),
             );
           }
           if (setting.name == DetailSurahScreen.routeName) {
             return CustomPageRouteFadeTransition(
-                DetailSurahScreen(
-                  dataSurah: setting.arguments as Map<String, dynamic>,
-                ),
+              DetailSurahScreen(
+                dataSurah: setting.arguments as Map<String, dynamic>,
+              ),
             );
           }
           if (setting.name == DetailJuzScreen.routeName) {
             return CustomPageRouteFadeTransition(
-                DetailJuzScreen(
-                  dataJuz: setting.arguments as DataJuzList,
-                ),
+              DetailJuzScreen(
+                dataJuz: setting.arguments as DataJuzList,
+              ),
             );
           }
           if (setting.name == FavoriteScreen.routeName) {
@@ -93,17 +95,17 @@ class MyApp extends StatelessWidget {
           }
           if (setting.name == LoginScreen.routeName) {
             return CustomPageRouteFadeTransition(
-                const LoginScreen(),
+              const LoginScreen(),
             );
           }
           if (setting.name == SignupScreen.routeName) {
             return CustomPageRouteFadeTransition(
-                const SignupScreen(),
+              const SignupScreen(),
             );
           }
           if (setting.name == ProfileScreen.routeName) {
             return CustomPageRouteFadeTransition(
-                const ProfileScreen(),
+              const ProfileScreen(),
             );
           }
           return null;

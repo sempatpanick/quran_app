@@ -10,9 +10,9 @@ import 'auth_api_test.mocks.dart';
 @GenerateMocks([AuthApi])
 void main() {
   group('Auth API', () {
-    final MockAuthApi _authApi = MockAuthApi();
+    final MockAuthApi authApi = MockAuthApi();
     test('login will returns data', () async {
-      when(_authApi.login("username", "password")).thenAnswer((_) async =>
+      when(authApi.login("username", "password")).thenAnswer((_) async =>
           AuthModel(
               status: true,
               message: "Success",
@@ -24,7 +24,7 @@ void main() {
     });
 
     test('sign up will returns data', () async {
-      when(_authApi.signup("username", "password", "dadang"))
+      when(authApi.signup("username", "password", "dadang"))
           .thenAnswer((_) async => AuthModel(
                 status: true,
                 message: "Success",
@@ -32,7 +32,7 @@ void main() {
     });
 
     test('update profile will returns data', () async {
-      when(_authApi.updateProfile("id", "username", "password", "email"))
+      when(authApi.updateProfile("id", "username", "password", "email"))
           .thenAnswer((_) async => AuthModel(
                 status: true,
                 message: "Success",
@@ -40,22 +40,22 @@ void main() {
     });
 
     test('get all favorites will returns data', () async {
-      when(_authApi.getAllFavorites("id")).thenAnswer(
+      when(authApi.getAllFavorites("id")).thenAnswer(
           (_) async => FavoriteModel(status: true, message: "message"));
     });
 
     test('get favorite will returns data', () async {
-      when(_authApi.getFavorite("id", 1)).thenAnswer(
+      when(authApi.getFavorite("id", 1)).thenAnswer(
           (_) async => FavoriteModel(status: true, message: "message"));
     });
 
     test('get favorite will returns data', () async {
-      when(_authApi.addFavorite("id", 1)).thenAnswer(
+      when(authApi.addFavorite("id", 1)).thenAnswer(
           (_) async => FavoriteModel(status: true, message: "message"));
     });
 
     test('get favorite will returns data', () async {
-      when(_authApi.removeFavorite("id", 1)).thenAnswer(
+      when(authApi.removeFavorite("id", 1)).thenAnswer(
           (_) async => FavoriteModel(status: true, message: "message"));
     });
   });

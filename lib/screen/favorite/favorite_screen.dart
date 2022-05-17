@@ -20,11 +20,9 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
-    if (WidgetsBinding.instance != null) {
-      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
-        Provider.of<SurahViewModel>(context, listen: false).getSurahFavorites();
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      Provider.of<SurahViewModel>(context, listen: false).getSurahFavorites();
+    });
 
     super.initState();
   }
@@ -39,11 +37,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         }
 
         if (model.state == ResultState.hasData) {
-          List<DataSurah> _allSurahFav = [];
+          List<DataSurah> allSurahFav = [];
           for (var favorite in model.favorites) {
             for (var surah in model.surah) {
               if (favorite.numberSurah == surah.number.toString()) {
-                _allSurahFav.add(surah);
+                allSurahFav.add(surah);
               }
             }
           }
@@ -65,9 +63,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               separatorBuilder: (context, index) {
                 return const Divider();
               },
-              itemCount: _allSurahFav.length,
+              itemCount: allSurahFav.length,
               itemBuilder: (BuildContext context, int index) {
-                final DataSurah surah = _allSurahFav[index];
+                final DataSurah surah = allSurahFav[index];
                 return CustomItemSurah(dataSurah: surah);
               },
             ),

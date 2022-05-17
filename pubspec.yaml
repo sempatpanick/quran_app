@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -38,14 +38,14 @@ dependencies:
   provider: ^6.0.2
   intl: ^0.17.0
   awesome_dialog: ^2.2.1
-  shared_preferences: ^2.0.13
+  shared_preferences: ^2.0.15
   json_annotation: ^4.5.0
-  flutter_slidable: ^1.2.0
+  flutter_slidable: ^1.2.1
   audioplayers: ^0.20.1
   flutter_svg: ^1.0.3
   tab_indicator_styler: ^2.0.0
   edge_alerts: ^0.0.1
-  visibility_detector: ^0.3.0
+  visibility_detector: ^0.3.3
 
 dev_dependencies:
   flutter_test:
@@ -56,8 +56,8 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.4
-  build_runner: ^2.1.10
+  flutter_lints: ^2.0.1
+  build_runner: ^2.1.11
   json_serializable: ^6.2.0
   mockito: ^5.1.0
 

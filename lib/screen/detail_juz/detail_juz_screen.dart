@@ -49,7 +49,7 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           int max = Provider.of<DetailJuzViewModel>(context, listen: false)
               .juz
               .data!
@@ -69,7 +69,7 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
 
   @override
   void didChangeDependencies() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<DetailJuzViewModel>(context, listen: false).resetCounter();
       Provider.of<DetailJuzViewModel>(context, listen: false).getJuzById(
           widget.dataJuz.verseMapping.last.numberSurah,

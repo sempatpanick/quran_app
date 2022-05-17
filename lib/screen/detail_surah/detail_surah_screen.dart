@@ -40,13 +40,15 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
   }
 
   void scrolling() async {
+    final DetailSurahViewModel detailSurahViewModel =
+        Provider.of<DetailSurahViewModel>(context, listen: false);
+
     await Future.delayed(const Duration(seconds: 1), () async {
       await _scrollController.animateTo(widget.dataSurah['position'],
           duration: const Duration(seconds: 1), curve: Curves.easeOutExpo);
     });
 
-    Provider.of<DetailSurahViewModel>(context, listen: false)
-        .setIsScrolling(false);
+    detailSurahViewModel.setIsScrolling(false);
   }
 
   @override
@@ -67,7 +69,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           int max = Provider.of<DetailSurahViewModel>(context, listen: false)
               .surah
               .data!
@@ -87,7 +89,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
 
   @override
   void didChangeDependencies() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (widget.dataSurah['position'] != null) {
         Provider.of<DetailSurahViewModel>(context, listen: false)
             .setIsScrolling(true);

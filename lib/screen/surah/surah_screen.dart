@@ -37,10 +37,10 @@ class _SurahScreenState extends State<SurahScreen>
   DataAuth? auth;
 
   void _getAuthFromPreference() async {
-    final _loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
-    final DataAuth _auth = await _loginViewModel.getAuthFromPreference();
+    final loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
+    final DataAuth authPref = await loginViewModel.getAuthFromPreference();
     setState(() {
-      auth = _auth;
+      auth = authPref;
     });
   }
 
@@ -53,7 +53,7 @@ class _SurahScreenState extends State<SurahScreen>
 
   @override
   void didChangeDependencies() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<SurahViewModel>(context, listen: false)
           .changeCategoryState(CategoryState.surah);
       Provider.of<SurahViewModel>(context, listen: false).getListJuzFromJson();
@@ -133,10 +133,12 @@ class _SurahScreenState extends State<SurahScreen>
                   ListTile(
                     onTap: () async {
                       Navigator.pop(context);
+                      final SurahViewModel surahViewModel =
+                          Provider.of<SurahViewModel>(context, listen: false);
+
                       await Navigator.pushNamed(
                           context, FavoriteScreen.routeName);
-                      Provider.of<SurahViewModel>(context, listen: false)
-                          .getAllFavorites();
+                      surahViewModel.getAllFavorites();
                     },
                     leading: const Icon(Icons.favorite),
                     title: const Text("Favorites"),

@@ -23,21 +23,21 @@ class CustomDetailItemSurah extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () async {
-        final DetailSurahViewModel _detailSurahViewModel =
+        final DetailSurahViewModel detailSurahViewModel =
             Provider.of<DetailSurahViewModel>(context, listen: false);
 
-        if (_detailSurahViewModel.tempUrlAudio != ayat.audio.primary) {
+        if (detailSurahViewModel.tempUrlAudio != ayat.audio.primary) {
           await audioPlayer.stop();
-          _detailSurahViewModel.reset();
+          detailSurahViewModel.reset();
         }
 
-        _detailSurahViewModel.setAudioPlayerShow(true);
+        detailSurahViewModel.setAudioPlayerShow(true);
         final play = await audioPlayer.setUrl(ayat.audio.primary);
         if (play == 1) {
-          _detailSurahViewModel.setTempUrlAudio(ayat.audio.primary);
+          detailSurahViewModel.setTempUrlAudio(ayat.audio.primary);
         }
         await audioPlayer.resume();
-        _detailSurahViewModel.setTurnsDecrement(1 / 4);
+        detailSurahViewModel.setTurnsDecrement(1 / 4);
         animationController.forward();
       },
       title: Row(

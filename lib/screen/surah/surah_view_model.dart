@@ -63,9 +63,9 @@ class SurahViewModel extends ChangeNotifier {
 
   void getListJuzFromJson() async {
     final String raw = await rootBundle.loadString('assets/json/juz.json');
-    final JuzListModel _listJuz = JuzListModel.fromJson(json.decode(raw));
+    final JuzListModel listJuz = JuzListModel.fromJson(json.decode(raw));
 
-    _juz = _listJuz.juz;
+    _juz = listJuz.juz;
   }
 
   void searchSurah(String query) async {
@@ -116,9 +116,9 @@ class SurahViewModel extends ChangeNotifier {
   }
 
   void getAllFavorites() async {
-    final _auth = await _authPref.getAuth;
-    if (_auth != null) {
-      final auth = _auth as DataAuth;
+    final authPref = await _authPref.getAuth;
+    if (authPref != null) {
+      final auth = authPref as DataAuth;
       final FavoriteModel result = await _authApi.getAllFavorites(auth.id);
       if (result.status) {
         _favorites = result.data!;
@@ -130,15 +130,15 @@ class SurahViewModel extends ChangeNotifier {
   Future<FavoriteModel> addToFavorite(int numberSurah) async {
     changeStateFavorite(ResultState.loading);
     try {
-      final _auth = await _authPref.getAuth;
+      final authPref = await _authPref.getAuth;
 
-      if (_auth == null) {
+      if (authPref == null) {
         changeStateFavorite(ResultState.error);
         return FavoriteModel(
             status: false, message: "Failed to add favorite, please re-login");
       }
 
-      final auth = _auth as DataAuth;
+      final auth = authPref as DataAuth;
       final FavoriteModel result =
           await _authApi.addFavorite(auth.id, numberSurah);
 
@@ -154,15 +154,15 @@ class SurahViewModel extends ChangeNotifier {
   Future<FavoriteModel> removeFavorite(int numberSurah) async {
     changeStateFavorite(ResultState.loading);
     try {
-      final _auth = await _authPref.getAuth;
+      final authPref = await _authPref.getAuth;
 
-      if (_auth == null) {
+      if (authPref == null) {
         changeStateFavorite(ResultState.error);
         return FavoriteModel(
             status: false, message: "Failed to add favorite, please re-login");
       }
 
-      final auth = _auth as DataAuth;
+      final auth = authPref as DataAuth;
       final FavoriteModel result =
           await _authApi.removeFavorite(auth.id, numberSurah);
 
@@ -176,16 +176,16 @@ class SurahViewModel extends ChangeNotifier {
   }
 
   void getSurahFavorites() {
-    List<DataSurah> _allSurahFav = [];
+    List<DataSurah> allSurahFav = [];
     for (var favorite in _favorites) {
       for (var surah in _tempSurah) {
         if (favorite.numberSurah == surah.number.toString()) {
-          _allSurahFav.add(surah);
+          allSurahFav.add(surah);
         }
       }
     }
     _surahFavorites.clear();
-    _surahFavorites.addAll(_allSurahFav);
+    _surahFavorites.addAll(allSurahFav);
   }
 
   void changeCategoryState(CategoryState s) {

@@ -23,7 +23,7 @@ class QuranApi {
       } catch (e) {
         return SurahModel.fromJson(response.data);
       }
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       return SurahModel(
           code: 500,
           status: "Failed",
@@ -45,7 +45,7 @@ class QuranApi {
       } catch (e) {
         return DetailSurahModel.fromJson(response.data);
       }
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       return DetailSurahModel(
           code: 500,
           status: "Failed",
@@ -68,7 +68,7 @@ class QuranApi {
       } catch (e) {
         return DetailAyatModel.fromJson(response.data);
       }
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       return DetailAyatModel(
           code: 500,
           status: 'Failed',
@@ -89,7 +89,7 @@ class QuranApi {
       } catch (e) {
         return JuzModel.fromJson(response.data);
       }
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       return JuzModel(
           code: 500,
           status: "Failed",
