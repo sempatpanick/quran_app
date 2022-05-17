@@ -2,11 +2,13 @@
 // in quran_app/test/unit/model/api/quran_api_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i5;
+import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:quran_app/model/api/quran_api.dart' as _i4;
+import 'package:quran_app/model/api/quran_api.dart' as _i6;
+import 'package:quran_app/model/detail_ayat_model.dart' as _i4;
 import 'package:quran_app/model/detail_surah_model.dart' as _i3;
+import 'package:quran_app/model/juz_model.dart' as _i5;
 import 'package:quran_app/model/surah_model.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -24,22 +26,41 @@ class _FakeSurahModel_0 extends _i1.Fake implements _i2.SurahModel {}
 class _FakeDetailSurahModel_1 extends _i1.Fake implements _i3.DetailSurahModel {
 }
 
+class _FakeDetailAyatModel_2 extends _i1.Fake implements _i4.DetailAyatModel {}
+
+class _FakeJuzModel_3 extends _i1.Fake implements _i5.JuzModel {}
+
 /// A class which mocks [QuranApi].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockQuranApi extends _i1.Mock implements _i4.QuranApi {
+class MockQuranApi extends _i1.Mock implements _i6.QuranApi {
   MockQuranApi() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.SurahModel> getAllSurah() =>
+  _i7.Future<_i2.SurahModel> getAllSurah() =>
       (super.noSuchMethod(Invocation.method(#getAllSurah, []),
               returnValue: Future<_i2.SurahModel>.value(_FakeSurahModel_0()))
-          as _i5.Future<_i2.SurahModel>);
-  _i5.Future<_i3.DetailSurahModel> getSurah(int? number) =>
-      (super.noSuchMethod(Invocation.method(#getSurah, [number]),
+          as _i7.Future<_i2.SurahModel>);
+  @override
+  _i7.Future<_i3.DetailSurahModel> getSurahById(int? number) =>
+      (super.noSuchMethod(Invocation.method(#getSurahById, [number]),
               returnValue:
                   Future<_i3.DetailSurahModel>.value(_FakeDetailSurahModel_1()))
-          as _i5.Future<_i3.DetailSurahModel>);
+          as _i7.Future<_i3.DetailSurahModel>);
+  @override
+  _i7.Future<_i4.DetailAyatModel> getDetailVerseBySurahNumber(
+          int? numberSurah, int? number) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getDetailVerseBySurahNumber, [numberSurah, number]),
+              returnValue:
+                  Future<_i4.DetailAyatModel>.value(_FakeDetailAyatModel_2()))
+          as _i7.Future<_i4.DetailAyatModel>);
+  @override
+  _i7.Future<_i5.JuzModel> getJuzById(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getJuzById, [id]),
+              returnValue: Future<_i5.JuzModel>.value(_FakeJuzModel_3()))
+          as _i7.Future<_i5.JuzModel>);
 }
