@@ -24,8 +24,7 @@ class DetailJuzScreen extends StatefulWidget {
   State<DetailJuzScreen> createState() => _DetailJuzScreenState();
 }
 
-class _DetailJuzScreenState extends State<DetailJuzScreen>
-    with TickerProviderStateMixin {
+class _DetailJuzScreenState extends State<DetailJuzScreen> with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   late AnimationController _animationController;
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -47,14 +46,9 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
     );
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-          int max = Provider.of<DetailJuzViewModel>(context, listen: false)
-              .juz
-              .data!
-              .verses
-              .length;
+          int max = Provider.of<DetailJuzViewModel>(context, listen: false).juz.data!.verses.length;
           setState(() {
             if (_currentMax + 10 < max) {
               _getMoreData();
@@ -71,9 +65,8 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
   void didChangeDependencies() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<DetailJuzViewModel>(context, listen: false).resetCounter();
-      Provider.of<DetailJuzViewModel>(context, listen: false).getJuzById(
-          widget.dataJuz.verseMapping.last.numberSurah,
-          widget.dataJuz.juzNumber);
+      Provider.of<DetailJuzViewModel>(context, listen: false)
+          .getJuzById(widget.dataJuz.verseMapping.last.numberSurah, widget.dataJuz.juzNumber);
 
       final DetailSurahViewModel detailSurahViewModel =
           Provider.of<DetailSurahViewModel>(context, listen: false);
@@ -81,8 +74,8 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
       detailSurahViewModel.reset();
 
       _audioPlayer.onPlayerStateChanged.listen((state) {
-        detailSurahViewModel.setPlaying(state == PlayerState.PLAYING);
-        if (state == PlayerState.COMPLETED) {
+        detailSurahViewModel.setPlaying(state == PlayerState.playing);
+        if (state == PlayerState.completed) {
           detailSurahViewModel.setTurnsDecrement(1 / 4);
           _animationController.reverse();
         }
@@ -92,7 +85,7 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
         detailSurahViewModel.setDurationAudio(currentDuration);
       });
 
-      _audioPlayer.onAudioPositionChanged.listen((currentPosition) {
+      _audioPlayer.onPositionChanged.listen((currentPosition) {
         detailSurahViewModel.setPositionAudio(currentPosition);
       });
     });
@@ -111,24 +104,17 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar:
-          Consumer<DetailSurahViewModel>(builder: (context, model, child) {
+      bottomNavigationBar: Consumer<DetailSurahViewModel>(builder: (context, model, child) {
         if (model.isAudioPlayerShow) {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(25.0)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(25.0)),
                 color: Colors.grey[50],
                 boxShadow: [
                   BoxShadow(
-                      blurRadius: 20.0,
-                      offset: const Offset(5, -5),
-                      color: Colors.grey[400]!),
-                  const BoxShadow(
-                      blurRadius: 20.0,
-                      offset: Offset(-5, 5),
-                      color: Colors.white)
+                      blurRadius: 20.0, offset: const Offset(5, -5), color: Colors.grey[400]!),
+                  const BoxShadow(blurRadius: 20.0, offset: Offset(-5, 5), color: Colors.white)
                 ]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,15 +143,11 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
                         boxShadow: [
                           BoxShadow(
                               blurRadius: 30.0,
-                              offset: model.isPlaying
-                                  ? const Offset(5, -5)
-                                  : const Offset(5, 5),
+                              offset: model.isPlaying ? const Offset(5, -5) : const Offset(5, 5),
                               color: Colors.grey),
                           BoxShadow(
                               blurRadius: 30.0,
-                              offset: model.isPlaying
-                                  ? const Offset(-5, 5)
-                                  : const Offset(-5, -5),
+                              offset: model.isPlaying ? const Offset(-5, 5) : const Offset(-5, -5),
                               color: Colors.white)
                         ]),
                     child: SizedBox(
@@ -197,8 +179,7 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
                           min: 0,
                           max: model.durationAudio.inSeconds.toDouble(),
                           onChanged: (value) async {
-                            final newPosition =
-                                Duration(seconds: value.toInt());
+                            final newPosition = Duration(seconds: value.toInt());
                             await _audioPlayer.seek(newPosition);
 
                             if (model.isPlaying) {
@@ -276,31 +257,28 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
                                 showModalBottomSheet(
                                     context: context,
                                     shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20))),
-                                    builder: (context) => StatefulBuilder(
-                                            builder: (context, setState) {
+                                        borderRadius:
+                                            BorderRadius.vertical(top: Radius.circular(20))),
+                                    builder: (context) =>
+                                        StatefulBuilder(builder: (context, setState) {
                                           return Consumer<DetailSurahViewModel>(
                                               builder: (context, model, child) {
                                             return Padding(
                                               padding: const EdgeInsets.all(20),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   const Text(
                                                     "Ukuran Ayat",
-                                                    style:
-                                                        TextStyle(fontSize: 14),
+                                                    style: TextStyle(fontSize: 14),
                                                   ),
                                                   Slider.adaptive(
                                                     value: model.sizeAyat,
                                                     onChanged: (value) {
                                                       model.setSizeAyat(value);
                                                     },
-                                                    activeColor:
-                                                        bgColorRedLight,
+                                                    activeColor: bgColorRedLight,
                                                     inactiveColor: bgColorGrey,
                                                     min: 10,
                                                     max: 50,
@@ -308,21 +286,16 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
                                                   ),
                                                   const Text(
                                                     "Ukuran Terjemahan",
-                                                    style:
-                                                        TextStyle(fontSize: 14),
+                                                    style: TextStyle(fontSize: 14),
                                                   ),
                                                   Slider.adaptive(
-                                                    value:
-                                                        model.sizeTranslation,
+                                                    value: model.sizeTranslation,
                                                     onChanged: (value) {
                                                       setState(() {
-                                                        model
-                                                            .setSizeTranslation(
-                                                                value);
+                                                        model.setSizeTranslation(value);
                                                       });
                                                     },
-                                                    activeColor:
-                                                        bgColorRedLight,
+                                                    activeColor: bgColorRedLight,
                                                     inactiveColor: bgColorGrey,
                                                     min: 10,
                                                     max: 50,
@@ -352,12 +325,10 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
                             return const SizedBox();
                           }
                           if (index == _currentMax) {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            return const Center(child: CircularProgressIndicator());
                           }
                           final VerseJuz verseJuz = dataJuz.verses[index];
-                          final Map<String, dynamic> jsonJuz =
-                              verseJuz.toJson();
+                          final Map<String, dynamic> jsonJuz = verseJuz.toJson();
                           final Verse ayat = Verse.fromJson(jsonJuz);
                           return CustomDetailItemSurah(
                             ayat: ayat,
@@ -365,8 +336,7 @@ class _DetailJuzScreenState extends State<DetailJuzScreen>
                             animationController: _animationController,
                             addon: {
                               'sizeAyat': modelDetailSurah.sizeAyat,
-                              'sizeTranslation':
-                                  modelDetailSurah.sizeTranslation
+                              'sizeTranslation': modelDetailSurah.sizeTranslation
                             },
                           );
                         },

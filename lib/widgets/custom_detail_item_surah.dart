@@ -32,8 +32,8 @@ class CustomDetailItemSurah extends StatelessWidget {
         }
 
         detailSurahViewModel.setAudioPlayerShow(true);
-        final play = await audioPlayer.setUrl(ayat.audio.primary);
-        if (play == 1) {
+        await audioPlayer.setSource(UrlSource(ayat.audio.primary));
+        if (audioPlayer.state == PlayerState.playing) {
           detailSurahViewModel.setTempUrlAudio(ayat.audio.primary);
         }
         await audioPlayer.resume();

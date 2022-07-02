@@ -27,13 +27,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() async {
     if (_formKey.currentState!.validate()) {
-      final LoginViewModel loginViewModel =
-          Provider.of<LoginViewModel>(context, listen: false);
+      final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
       final scaffoldMessenger = ScaffoldMessenger.of(context);
       final navigator = Navigator.of(context);
 
-      final login = await loginViewModel.login(
-          _usernameController.text, _passwordController.text);
+      final login = await loginViewModel.login(_usernameController.text, _passwordController.text);
       final authPref = await loginViewModel.getAuthFromPreference();
       if (authPref != null) {
         navigator.pushReplacementNamed(SurahScreen.routeName);
@@ -63,8 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25.0),
-                          topRight: Radius.circular(25.0))),
+                          topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
                   child: Form(
                     key: _formKey,
                     child: ListView(
@@ -76,8 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _usernameController,
                           autocorrect: false,
                           textInputAction: TextInputAction.next,
-                          readOnly:
-                              value.state == ResultState.loading ? true : false,
+                          readOnly: value.state == ResultState.loading ? true : false,
                           validator: (value) {
                             if (value == null || value.length < 3) {
                               return "Username tidak boleh kurang dari 3 karakter";
@@ -86,12 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           decoration: const InputDecoration(
                             labelText: 'Username',
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 20.0),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
                             icon: Icon(Icons.person_outline),
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
+                              borderRadius: BorderRadius.all(Radius.circular(25)),
                             ),
                           ),
                         ),
@@ -103,8 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: !_isPasswordVisible,
                           autocorrect: false,
                           textInputAction: TextInputAction.go,
-                          readOnly:
-                              value.state == ResultState.loading ? true : false,
+                          readOnly: value.state == ResultState.loading ? true : false,
                           onFieldSubmitted: (_) => login(),
                           validator: (value) {
                             if (value == null || value.length < 3) {
@@ -114,8 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
                             prefixIconColor: Colors.white,
                             icon: const Icon(Icons.password),
                             suffixIcon: IconButton(
@@ -128,8 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined)),
                             border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
+                              borderRadius: BorderRadius.all(Radius.circular(25)),
                             ),
                           ),
                         ),
@@ -137,19 +128,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 20,
                         ),
                         ElevatedButton(
-                            onPressed: value.state == ResultState.loading
-                                ? null
-                                : () => login(),
+                            onPressed: value.state == ResultState.loading ? null : () => login(),
                             style: OutlinedButton.styleFrom(
                               backgroundColor: bgColorBlueLight,
                               shape: const StadiumBorder(),
-                              side: const BorderSide(
-                                  width: 2.0, color: bgColorBlueLight),
+                              side: const BorderSide(width: 2.0, color: bgColorBlueLight),
                             ),
                             child: value.state == ResultState.loading
                                 ? const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 8.0),
+                                    padding: EdgeInsets.symmetric(vertical: 8.0),
                                     child: CircularProgressIndicator(),
                                   )
                                 : const Text(
@@ -169,11 +156,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 children: [
                                   TextSpan(
                                       text: ' Sign up',
-                                      style: const TextStyle(
-                                          color: bgColorBlueLight),
+                                      style: const TextStyle(color: bgColorBlueLight),
                                       recognizer: TapGestureRecognizer()
-                                        ..onTap = () => Navigator.pushNamed(
-                                            context, SignupScreen.routeName)),
+                                        ..onTap = () =>
+                                            Navigator.pushNamed(context, SignupScreen.routeName)),
                                 ]),
                           ),
                         ),

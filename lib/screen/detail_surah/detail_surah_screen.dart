@@ -17,15 +17,13 @@ class DetailSurahScreen extends StatefulWidget {
   static const String routeName = '/detail_surah';
 
   final Map<String, dynamic> dataSurah;
-  const DetailSurahScreen({Key? key, required this.dataSurah})
-      : super(key: key);
+  const DetailSurahScreen({Key? key, required this.dataSurah}) : super(key: key);
 
   @override
   State<DetailSurahScreen> createState() => _DetailSurahScreenState();
 }
 
-class _DetailSurahScreenState extends State<DetailSurahScreen>
-    with TickerProviderStateMixin {
+class _DetailSurahScreenState extends State<DetailSurahScreen> with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   late AnimationController _animationController;
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -54,8 +52,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
   @override
   void initState() {
     super.initState();
-    Provider.of<DetailSurahViewModel>(context, listen: false)
-        .setIsScrolling(false);
+    Provider.of<DetailSurahViewModel>(context, listen: false).setIsScrolling(false);
 
     if (widget.dataSurah['numberVerse'] != null) {
       _currentMax = widget.dataSurah['numberVerse'] + 1;
@@ -67,14 +64,10 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
     );
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-          int max = Provider.of<DetailSurahViewModel>(context, listen: false)
-              .surah
-              .data!
-              .verses
-              .length;
+          int max =
+              Provider.of<DetailSurahViewModel>(context, listen: false).surah.data!.verses.length;
           setState(() {
             if (_currentMax + 10 < max) {
               _getMoreData();
@@ -91,8 +84,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
   void didChangeDependencies() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (widget.dataSurah['position'] != null) {
-        Provider.of<DetailSurahViewModel>(context, listen: false)
-            .setIsScrolling(true);
+        Provider.of<DetailSurahViewModel>(context, listen: false).setIsScrolling(true);
       }
 
       Provider.of<DetailSurahViewModel>(context, listen: false)
@@ -106,8 +98,8 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
       detailSurahViewModel.reset();
 
       _audioPlayer.onPlayerStateChanged.listen((state) {
-        detailSurahViewModel.setPlaying(state == PlayerState.PLAYING);
-        if (state == PlayerState.COMPLETED) {
+        detailSurahViewModel.setPlaying(state == PlayerState.playing);
+        if (state == PlayerState.completed) {
           detailSurahViewModel.setTurnsDecrement(1 / 4);
           _animationController.reverse();
         }
@@ -117,7 +109,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
         detailSurahViewModel.setDurationAudio(currentDuration);
       });
 
-      _audioPlayer.onAudioPositionChanged.listen((currentPosition) {
+      _audioPlayer.onPositionChanged.listen((currentPosition) {
         detailSurahViewModel.setPositionAudio(currentPosition);
       });
     });
@@ -136,24 +128,17 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar:
-          Consumer<DetailSurahViewModel>(builder: (context, model, child) {
+      bottomNavigationBar: Consumer<DetailSurahViewModel>(builder: (context, model, child) {
         if (model.isAudioPlayerShow) {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(25.0)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(25.0)),
                 color: Colors.grey[50],
                 boxShadow: [
                   BoxShadow(
-                      blurRadius: 20.0,
-                      offset: const Offset(5, -5),
-                      color: Colors.grey[400]!),
-                  const BoxShadow(
-                      blurRadius: 20.0,
-                      offset: Offset(-5, 5),
-                      color: Colors.white)
+                      blurRadius: 20.0, offset: const Offset(5, -5), color: Colors.grey[400]!),
+                  const BoxShadow(blurRadius: 20.0, offset: Offset(-5, 5), color: Colors.white)
                 ]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,15 +167,11 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
                         boxShadow: [
                           BoxShadow(
                               blurRadius: 30.0,
-                              offset: model.isPlaying
-                                  ? const Offset(5, -5)
-                                  : const Offset(5, 5),
+                              offset: model.isPlaying ? const Offset(5, -5) : const Offset(5, 5),
                               color: Colors.grey),
                           BoxShadow(
                               blurRadius: 30.0,
-                              offset: model.isPlaying
-                                  ? const Offset(-5, 5)
-                                  : const Offset(-5, -5),
+                              offset: model.isPlaying ? const Offset(-5, 5) : const Offset(-5, -5),
                               color: Colors.white)
                         ]),
                     child: SizedBox(
@@ -222,8 +203,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
                           min: 0,
                           max: model.durationAudio.inSeconds.toDouble(),
                           onChanged: (value) async {
-                            final newPosition =
-                                Duration(seconds: value.toInt());
+                            final newPosition = Duration(seconds: value.toInt());
                             await _audioPlayer.seek(newPosition);
 
                             if (model.isPlaying) {
@@ -296,39 +276,32 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
                           showModalBottomSheet(
                               context: context,
                               shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              builder: (context) =>
-                                  StatefulBuilder(builder: (context, setState) {
+                                  borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+                              builder: (context) => StatefulBuilder(builder: (context, setState) {
                                     return Consumer<DetailSurahViewModel>(
                                         builder: (context, model, child) {
                                       return Padding(
                                         padding: const EdgeInsets.all(20),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             CheckboxListTile(
                                               contentPadding: EdgeInsets.zero,
                                               value: model.isFavorite,
                                               activeColor: bgColorRedLight,
-                                              onChanged: model.stateFavorite ==
-                                                      ResultState.loading
+                                              onChanged: model.stateFavorite == ResultState.loading
                                                   ? null
                                                   : (value) {
                                                       if (model.isFavorite) {
                                                         model.removeFavorite(
-                                                            widget.dataSurah[
-                                                                'number']);
+                                                            widget.dataSurah['number']);
                                                       } else {
                                                         model.addToFavorite(
-                                                            widget.dataSurah[
-                                                                'number']);
+                                                            widget.dataSurah['number']);
                                                       }
 
-                                                      Provider.of<SurahViewModel>(
-                                                              context,
+                                                      Provider.of<SurahViewModel>(context,
                                                               listen: false)
                                                           .getAllFavorites();
                                                     },
@@ -360,8 +333,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
                                               value: model.sizeTranslation,
                                               onChanged: (value) {
                                                 setState(() {
-                                                  model.setSizeTranslation(
-                                                      value);
+                                                  model.setSizeTranslation(value);
                                                 });
                                               },
                                               activeColor: bgColorRedLight,
@@ -390,16 +362,14 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
                       if (preBismillah != null)
                         GestureDetector(
                           onTap: () async {
-                            if (model.tempUrlAudio !=
-                                preBismillah.audio.primary) {
+                            if (model.tempUrlAudio != preBismillah.audio.primary) {
                               await _audioPlayer.stop();
                               model.reset();
                             }
 
                             model.setAudioPlayerShow(true);
-                            final play = await _audioPlayer
-                                .setUrl(preBismillah.audio.primary);
-                            if (play == 1) {
+                            await _audioPlayer.setSource(UrlSource(preBismillah.audio.primary));
+                            if (_audioPlayer.state == PlayerState.playing) {
                               model.setTempUrlAudio(preBismillah.audio.primary);
                             }
                             await _audioPlayer.resume();
@@ -420,8 +390,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
                                 Text(
                                   preBismillah.translation.id,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: model.sizeTranslation),
+                                  style: TextStyle(fontSize: model.sizeTranslation),
                                 ),
                                 const Divider(),
                                 const SizedBox(
@@ -443,8 +412,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen>
                             return const SizedBox();
                           }
                           if (index == _currentMax) {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            return const Center(child: CircularProgressIndicator());
                           }
                           final Verse ayat = model.surah.data!.verses[index];
                           return VisibilityDetector(
